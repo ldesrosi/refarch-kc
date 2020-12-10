@@ -31,6 +31,7 @@ TOPIC_NAME="test"
 # Parse arguments to get the container ID to poll for
 def parseArguments():
     global TOPIC_NAME, ID
+    KAFKA_APIKEY = ''
     print("The arguments for the script are: " , str(sys.argv))
     if len(sys.argv) != 3:
         print("[ERROR] - The ConsumeContainer.py script expects two arguments: The container ID and the topic to send the container event to.")
