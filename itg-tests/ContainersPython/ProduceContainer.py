@@ -3,25 +3,35 @@ from kafka.KcProducer import KafkaProducer
 
 print(" @@@ Executing script: ProduceContainer.py")
 
-####################### READ ENV VARIABLES #######################
-# Try to read the Kafka broker from the environment variables
+##############################
+##### READ ENV VARIABLES #####
+##############################
 try:
     KAFKA_BROKERS = os.environ['KAFKA_BROKERS']
 except KeyError:
-    print("[ERROR] - The KAFKA_BROKERS environment variable needs to be set.")
+    print("The KAFKA_BROKERS environment variable needs to be set.")
     exit(1)
-
-# Try to read the Kafka API key from the environment variables
-try:
-    KAFKA_APIKEY = os.environ['KAFKA_APIKEY']
-except KeyError:
-    print("The KAFKA_APIKEY environment variable not set... assume local deployment")
 
 # Try to read the Kafka environment from the environment variables
 try:
     KAFKA_ENV = os.environ['KAFKA_ENV']
 except KeyError:
     KAFKA_ENV='LOCAL'
+
+# Try to read the Kafka user from the environment variables
+try:
+    KAFKA_USER = os.environ['KAFKA_USER']
+except KeyError:
+    print("The KAFKA_USER environment variable not set... assume local deployment")
+    KAFKA_USER=''
+
+# Try to read the Kafka password from the environment variables
+try:
+    KAFKA_PASSWORD = os.environ['KAFKA_PASSWORD']
+except KeyError:
+    print("The KAFKA_PASSWORD environment variable not set... assume local deployment")
+    KAFKA_PASSWORD=''
+
 
 ####################### VARIABLES #######################
 ID = "c01"
@@ -59,6 +69,6 @@ if __name__ == '__main__':
     evt = createContainer(ID)
     print("Container event to be published:")
     print(evt)
-    kp = KafkaProducer(KAFKA_ENV,KAFKA_BROKERS,KAFKA_APIKEY)
+    kp = KafkaProducer(KAFKA_ENV,KAFKA_BROKERS,KAFKA_USER,KAFKA_PASSWORD)
     kp.prepareProducer("ProduceContainerPython")
     kp.publishEvent(TOPIC_NAME,evt,"containerID")
