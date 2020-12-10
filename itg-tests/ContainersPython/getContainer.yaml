@@ -28,7 +28,7 @@ spec:
           value: "/tmp/github"
         # Github repository containing the integration tests to be executed
         - name: GITHUB_REPO
-          value: "https://github.com/ibm-cloud-architecture/refarch-kc.git"
+          value: "https://github.com/ldesrosi/refarch-kc.git"
         # Specific branch for the integration tests
         - name: BRANCH
           value: "master"
